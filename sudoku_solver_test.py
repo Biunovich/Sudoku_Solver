@@ -56,11 +56,19 @@ class SudokuSolverTest(unittest.TestCase):
         sudoku = [
             [2, 2, 3, 4],
             [0, 0, 0, 0],
+            [2, 1, 4, 3],
+            [0, 0, 0, 0]
+            ]
+        self.assertRaises(ValueError, SudokuSolver, sudoku)
+
+    def testIncorrect4x4Sudoku1(self):
+        sudoku = [
+            [2, 2, 3, 4],
+            [0, 0, 0, 0],
             [0, 1, 4, 3],
             [0, 0, 0, 0]
             ]
-        solver = SudokuSolver(sudoku)
-        solver.solve_sudoku()
+        self.assertRaises(ValueError, SudokuSolver, sudoku)
 
 if __name__ == "__main__":
     unittest.main()
