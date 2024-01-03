@@ -37,9 +37,7 @@ class SudokuSolver:
                 val = sudoku[i][j]
                 if not val:
                     continue
-                block_row = (i // self.block_size)
-                block_col = (j // self.block_size)
-                block_set = self.block_sets[block_row * self.block_size + block_col]
+                block_set = self.__get_block_set__(i, j)
                 if val in block_set:
                     raise ValueError("Incorrect sudoku: initial sudoku does not satisfy sudoku rules")
                 block_set.add(val)
@@ -64,20 +62,38 @@ class SudokuSolver:
         for val in range(1, self.size + 1):
             if self.__val_is_fit_optimized__(i, j, val):
                 self.sudoku[i][j] = val
+                self.__add_val_to_sets__(i, j, val)
                 if self.__try_solve__(next_i, next_j):
                     return True
+                self.__remove_val_from_sets__(i, j)
         self.sudoku[i][j] = 0
         return False
 
     def __val_is_fit_optimized__(self, i: int, j: int, val: int) -> bool:
         row_set = self.row_sets[i]
         col_set = self.col_sets[j]
-        block_row = (i // self.block_size)
-        block_col = (j // self.block_size)
-        block_set = self.block_sets[block_row * self.block_size + block_col]
+        block_set = self.__get_block_set__(i, j)
         if val in row_set or val in col_set or val in block_set:
             return False
         return True
+
+    def __add_val_to_sets__(self, i: int, j: int, val: int) -> None:
+        self.row_sets[i].add(val)
+        self.col_sets[j].add(val)
+        self.__get_block_set__(i, j).add(val)
+
+    def __remove_val_from_sets__(self, i: int, j: int) -> None:
+        val = self.sudoku[i][j]
+        if not val:
+            return
+        self.row_sets[i].remove(val)
+        self.col_sets[j].remove(val)
+        self.__get_block_set__(i, j).remove(val)
+
+    def __get_block_set__(self, i: int, j: int) -> set:
+        block_row = (i // self.block_size)
+        block_col = (j // self.block_size)
+        return self.block_sets[block_row * self.block_size + block_col]
 
     def print_sudoku(self) -> None:
         for i in range(self.size):
