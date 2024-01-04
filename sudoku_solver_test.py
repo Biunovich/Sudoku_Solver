@@ -70,5 +70,14 @@ class SudokuSolverTest(unittest.TestCase):
             ]
         self.assertRaises(ValueError, SudokuSolver, sudoku)
 
+    def testIncorrectSudokuWithBadValues(self):
+        sudoku = [
+            [1, 2, 3, 4],
+            [0, 0, 0, 0],
+            [0, 1, 4, 6],
+            [0, 0, 0, 0]
+            ]
+        self.assertRaises(ValueError, SudokuSolver, sudoku)
+
 if __name__ == "__main__":
     unittest.main()

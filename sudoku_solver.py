@@ -8,6 +8,7 @@ class SudokuSolver:
         for line in sudoku:
             if len(line) != size:
                 raise ValueError("Incorrect sudoku: sudoku must be a square shape")
+        allowed_numbers = set(range(0, size + 1))
         self.sudoku = sudoku
         self.block_size = int(math.sqrt(size))
         self.size = size
@@ -20,26 +21,12 @@ class SudokuSolver:
                 val = sudoku[i][j]
                 if not val:
                     continue
-                if val in row_set:
+                col_set = self.col_sets[j]
+                block_set = self.__get_block_set__(i, j)
+                if val not in allowed_numbers or val in row_set or val in col_set or val in block_set:
                     raise ValueError("Incorrect sudoku: initial sudoku does not satisfy sudoku rules")
                 row_set.add(val)
-        for j in range(size):
-            col_set = self.col_sets[j]
-            for i in range(size):
-                val = sudoku[i][j]
-                if not val:
-                    continue
-                if val in col_set:
-                    raise ValueError("Incorrect sudoku: initial sudoku does not satisfy sudoku rules")
                 col_set.add(val)
-        for i in range(size):
-            for j in range(size):
-                val = sudoku[i][j]
-                if not val:
-                    continue
-                block_set = self.__get_block_set__(i, j)
-                if val in block_set:
-                    raise ValueError("Incorrect sudoku: initial sudoku does not satisfy sudoku rules")
                 block_set.add(val)
 
     def solve_sudoku(self) -> None:
