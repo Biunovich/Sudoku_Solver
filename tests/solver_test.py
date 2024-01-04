@@ -1,13 +1,13 @@
 import unittest
-from sudoku_solver import SudokuSolver
+from sudoku_solver.solver import Solver
 
-class SudokuSolverTest(unittest.TestCase):
+class SolverTest(unittest.TestCase):
     def testIncorrectSudoku(self):
         sudoku = [
             [1, 2, 3, 4],
             [5, 6 ,7 ,8]
         ]
-        self.assertRaises(ValueError, SudokuSolver, sudoku)
+        self.assertRaises(ValueError, Solver, sudoku)
 
     def testNoSquareSudoku(self):
         sudoku = [
@@ -16,7 +16,7 @@ class SudokuSolverTest(unittest.TestCase):
             [1, 2, 3, 5],
             [1, 2, 3, 5]
         ]
-        self.assertRaises(ValueError, SudokuSolver, sudoku)
+        self.assertRaises(ValueError, Solver, sudoku)
 
     def testSimpleSudoku(self):
         sudoku = [
@@ -32,7 +32,7 @@ class SudokuSolverTest(unittest.TestCase):
             [0,3,0, 7,0,1, 4,9,5],
             [5,6,7, 4,2,9, 0,1,3]
         ]
-        solver = SudokuSolver(sudoku)
+        solver = Solver(sudoku)
         solver.solve_sudoku()
 
     def testHardSudoku(self):
@@ -49,7 +49,7 @@ class SudokuSolverTest(unittest.TestCase):
             [0,0,0, 0,0,0, 0,0,0],
             [4,2,0, 0,7,0, 0,5,8],
         ]
-        solver = SudokuSolver(sudoku)
+        solver = Solver(sudoku)
         solver.solve_sudoku()
 
     def testIncorrect4x4Sudoku(self):
@@ -59,7 +59,7 @@ class SudokuSolverTest(unittest.TestCase):
             [2, 1, 4, 3],
             [0, 0, 0, 0]
             ]
-        self.assertRaises(ValueError, SudokuSolver, sudoku)
+        self.assertRaises(ValueError, Solver, sudoku)
 
     def testIncorrect4x4Sudoku1(self):
         sudoku = [
@@ -68,7 +68,7 @@ class SudokuSolverTest(unittest.TestCase):
             [0, 1, 4, 3],
             [0, 0, 0, 0]
             ]
-        self.assertRaises(ValueError, SudokuSolver, sudoku)
+        self.assertRaises(ValueError, Solver, sudoku)
 
     def testIncorrectSudokuWithBadValues(self):
         sudoku = [
@@ -77,7 +77,7 @@ class SudokuSolverTest(unittest.TestCase):
             [0, 1, 4, 6],
             [0, 0, 0, 0]
             ]
-        self.assertRaises(ValueError, SudokuSolver, sudoku)
+        self.assertRaises(ValueError, Solver, sudoku)
 
 if __name__ == "__main__":
     unittest.main()

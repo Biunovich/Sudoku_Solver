@@ -1,6 +1,6 @@
 import math
 
-class SudokuSolver:
+class Solver:
     def __init__(self, sudoku: list[list[int]]) -> None:
         size = len(sudoku)
         if (not math.sqrt(size).is_integer()):
