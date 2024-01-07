@@ -2,6 +2,7 @@ import math
 import numpy as np
 import numpy.typing as npt
 
+
 class Solver:
     def __init__(self, sudoku: npt.NDArray[np.int_]) -> None:
         if (sudoku.ndim != 2):

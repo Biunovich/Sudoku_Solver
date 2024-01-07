@@ -3,15 +3,16 @@ import pytest
 from sudoku_solver.solver import Solver
 from numpy.testing import assert_array_equal
 
+
 class TestSolver():
     def testIncorrectSudoku(self):
         sudoku = np.array([
             [1, 2, 3, 4],
-            [5, 6 ,7 ,8]
+            [5, 6, 7, 8]
         ])
 
         pytest.raises(ValueError, Solver, sudoku)
-        
+
     def testIncorrect3DMatrix(self):
         sudoku = np.array([[[1]]])
 
@@ -89,7 +90,7 @@ class TestSolver():
             [0, 0, 0, 0],
             [2, 1, 4, 3],
             [0, 0, 0, 0]
-            ])
+        ])
 
         pytest.raises(ValueError, Solver, sudoku)
 
@@ -99,7 +100,7 @@ class TestSolver():
             [0, 0, 0, 0],
             [0, 1, 4, 3],
             [0, 0, 0, 0]
-            ])
+        ])
 
         pytest.raises(ValueError, Solver, sudoku)
 
@@ -109,6 +110,6 @@ class TestSolver():
             [0, 0, 0, 0],
             [0, 1, 4, 6],
             [0, 0, 0, 0]
-            ])
+        ])
 
         pytest.raises(ValueError, Solver, sudoku)

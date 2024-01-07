@@ -1,0 +1,9 @@
+[flake8]
+per-file-ignores =
+    tests/test_solver.py:E231
+exclude = .git,__pycache__,venv,.vscode,.pytest_cache
+max-complexity = 10
+max-line-length = 127
+statistics = True
+show_source = True
+count = True
