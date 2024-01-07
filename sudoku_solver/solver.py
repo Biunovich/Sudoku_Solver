@@ -1,20 +1,24 @@
 import math
+import numpy as np
+import numpy.typing as npt
 
 class Solver:
-    def __init__(self, sudoku: list[list[int]]) -> None:
-        size = len(sudoku)
-        if (not math.sqrt(size).is_integer()):
+    def __init__(self, sudoku: npt.NDArray[np.int_]) -> None:
+        if (sudoku.ndim != 2):
+            raise ValueError("Incorrect sudoku: should be a 2D matrix")
+        (rows, cols) = sudoku.shape
+        if (not math.sqrt(rows).is_integer()):
             raise ValueError("Incorrect sudoku: impossible sudoku")
-        for line in sudoku:
-            if len(line) != size:
-                raise ValueError("Incorrect sudoku: sudoku must be a square shape")
+        if (rows != cols):
+            raise ValueError("Incorrect sudoku: sudoku must be a square shape")
+        size = rows
         allowed_numbers = set(range(0, size + 1))
         self.sudoku = sudoku
         self.block_size = int(math.sqrt(size))
         self.size = size
-        self.row_sets = [set() for i in range(size)]
-        self.col_sets = [set() for i in range(size)]
-        self.block_sets = [set() for i in range(size)]
+        self.row_sets = [set() for _ in range(size)]
+        self.col_sets = [set() for _ in range(size)]
+        self.block_sets = [set() for _ in range(size)]
         for i in range(size):
             row_set = self.row_sets[i]
             for j in range(size):
