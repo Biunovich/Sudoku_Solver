@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
 from sudoku_solver.solver import Solver
+from numpy.testing import assert_array_equal
 
 class TestSolver():
     def testIncorrectSudoku(self):
@@ -34,6 +35,21 @@ class TestSolver():
         solver = Solver(sudoku)
         solver.solve_sudoku()
 
+        solved_sudoku = np.array([
+            [1,7,6, 5,8,3, 9,2,4],
+            [8,5,9, 2,7,4, 3,6,1],
+            [3,4,2, 9,1,6, 5,8,7],
+
+            [7,9,5, 1,4,8, 6,3,2],
+            [4,2,3, 6,9,7, 1,5,8],
+            [6,8,1, 3,5,2, 7,4,9],
+
+            [9,1,4, 8,3,5, 2,7,6],
+            [2,3,8, 7,6,1, 4,9,5],
+            [5,6,7, 4,2,9, 8,1,3]
+        ])
+        assert_array_equal(sudoku, solved_sudoku)
+
     def testHardSudoku(self):
         sudoku = np.array([
             [0,0,3, 9,0,4, 8,0,0],
@@ -51,6 +67,21 @@ class TestSolver():
 
         solver = Solver(sudoku)
         solver.solve_sudoku()
+
+        solved_sudoku = np.array([
+            [2,6,3, 9,1,4, 8,7,5],
+            [8,9,4, 5,6,7, 3,1,2],
+            [5,1,7, 2,8,3, 4,6,9],
+
+            [1,5,8, 6,4,9, 2,3,7],
+            [6,3,2, 7,5,8, 1,9,4],
+            [7,4,9, 1,3,2, 5,8,6],
+
+            [9,7,5, 8,2,1, 6,4,3],
+            [3,8,6, 4,9,5, 7,2,1],
+            [4,2,1, 3,7,6, 9,5,8],
+        ])
+        assert_array_equal(sudoku, solved_sudoku)
 
     def testIncorrect4x4Sudoku(self):
         sudoku = np.array([
