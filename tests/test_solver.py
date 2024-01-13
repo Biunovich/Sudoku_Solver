@@ -4,7 +4,7 @@ from sudoku_solver.solver import Solver
 from numpy.testing import assert_array_equal
 
 
-class TestSolver():
+class TestSolver:
     def testIncorrectSudoku(self):
         sudoku = np.array([
             [1, 2, 3, 4],

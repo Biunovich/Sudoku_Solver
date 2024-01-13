@@ -5,12 +5,12 @@ import numpy.typing as npt
 
 class Solver:
     def __init__(self, sudoku: npt.NDArray[np.int_]) -> None:
-        if (sudoku.ndim != 2):
+        if sudoku.ndim != 2:
             raise ValueError("Incorrect sudoku: should be a 2D matrix")
         (rows, cols) = sudoku.shape
-        if (not math.sqrt(rows).is_integer()):
+        if not math.sqrt(rows).is_integer():
             raise ValueError("Incorrect sudoku: impossible sudoku")
-        if (rows != cols):
+        if rows != cols:
             raise ValueError("Incorrect sudoku: sudoku must be a square shape")
         size = rows
         allowed_numbers = set(range(0, size + 1))
@@ -28,8 +28,15 @@ class Solver:
                     continue
                 col_set = self.col_sets[j]
                 block_set = self.__get_block_set__(i, j)
-                if val not in allowed_numbers or val in row_set or val in col_set or val in block_set:
-                    raise ValueError("Incorrect sudoku: initial sudoku does not satisfy sudoku rules")
+                if (
+                    val not in allowed_numbers
+                    or val in row_set
+                    or val in col_set
+                    or val in block_set
+                ):
+                    raise ValueError(
+                        "Incorrect sudoku: initial sudoku does not satisfy sudoku rules"
+                    )
                 row_set.add(val)
                 col_set.add(val)
                 block_set.add(val)
@@ -83,8 +90,8 @@ class Solver:
         self.__get_block_set__(i, j).remove(val)
 
     def __get_block_set__(self, i: int, j: int) -> set:
-        block_row = (i // self.block_size)
-        block_col = (j // self.block_size)
+        block_row = i // self.block_size
+        block_col = j // self.block_size
         return self.block_sets[block_row * self.block_size + block_col]
 
     def print_sudoku(self) -> None:
